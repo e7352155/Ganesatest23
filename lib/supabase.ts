@@ -2,42 +2,16 @@
 import { createClient } from '@supabase/supabase-js';
 import { Book, Category } from '../types';
 
-/**
- * Konfigurasi Database Ganesa Mas
- * Menggunakan kredensial yang disediakan pengguna sebagai fallback utama.
- */
 const SUPABASE_URL_DEFAULT = 'https://xlzrwgdoqxwgcufsgxor.supabase.co';
 const SUPABASE_ANON_KEY_DEFAULT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhsenJ3Z2RvcXh3Z2N1ZnNneG9yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2NTkzNTAsImV4cCI6MjA4NTIzNTM1MH0.ev-2NdKEslUD67eQUXMbjcn954rBx7SWo-CrD6vPU1Q';
 
-const getEnvVar = (key: string, fallback: string): string => {
-  try {
-    // Cek di import.meta.env (Vite/ESM)
-    // Gunakan try-catch dan pengecekan tipe untuk mencegah "import.meta.env is undefined"
-    if (typeof import.meta !== 'undefined' && (import.meta as any).env) {
-      const val = (import.meta as any).env[key];
-      if (val) return val;
-    }
-    
-    // Cek di process.env (Node/CommonJS fallback)
-    if (typeof process !== 'undefined' && process.env) {
-      const val = process.env[key];
-      if (val) return val;
-    }
-  } catch (e) {
-    // Silently ignore access errors
-  }
-  return fallback;
-};
+// Fallback to defaults if env vars are missing
+// Use type assertion on import.meta to avoid compilation error when 'env' is not recognized.
+const supabaseUrl = (import.meta as any).env?.VITE_SUPABASE_URL || SUPABASE_URL_DEFAULT;
+const supabaseAnonKey = (import.meta as any).env?.VITE_SUPABASE_ANON_KEY || SUPABASE_ANON_KEY_DEFAULT;
 
-const supabaseUrl = getEnvVar('VITE_SUPABASE_URL', SUPABASE_URL_DEFAULT);
-const supabaseAnonKey = getEnvVar('VITE_SUPABASE_ANON_KEY', SUPABASE_ANON_KEY_DEFAULT);
-
-// Inisialisasi Client Supabase
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-/**
- * Helper untuk konversi CamelCase (App) ke snake_case (DB)
- */
 const toSnake = (obj: any) => {
   const mapped: any = {};
   if (obj.title !== undefined) mapped.title = obj.title;

@@ -1,3 +1,4 @@
+
 /* 
  * Manual type definitions for Vite environment variables.
  * The 'vite/client' reference was removed as it was not found in the environment.
@@ -10,5 +11,3 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
-
-export {};

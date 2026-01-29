@@ -1,6 +1,5 @@
 
-import React, { useState, useEffect, useMemo } from 'react';
-import { Book, CartItem } from './types';
+import React, { useState, useMemo } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import AboutSection from './components/AboutSection';
@@ -16,40 +15,20 @@ import ContactPage from './components/ContactPage';
 import AdminDashboard from './components/CMS/AdminDashboard';
 import LoginPage from './components/CMS/LoginPage';
 import { useBooks } from './hooks/useBooks';
-import { db, supabase } from './lib/supabase';
 import { TESTIMONIALS } from './data';
+import { CartItem, Book } from './types';
 
 const App: React.FC = () => {
   const { books, refresh } = useBooks();
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [activeType, setActiveType] = useState<string>('All');
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [activeType, setActiveType] = useState('All');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'catalog' | 'contact' | 'admin'>('home');
-  
-  // Auth State
   const [session, setSession] = useState<any>(null);
-  const [checkingAuth, setCheckingAuth] = useState(true);
-
-  // Cart State
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-
-  useEffect(() => {
-    // Check session on mount
-    db.auth.getSession().then(sessionData => {
-      setSession(sessionData);
-      setCheckingAuth(false);
-    });
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, sessionData) => {
-      setSession(sessionData);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
 
   const filteredBooks = useMemo(() => {
     return books.filter(book => {
@@ -61,15 +40,7 @@ const App: React.FC = () => {
     });
   }, [books, searchTerm, activeCategory, activeType]);
 
-  const categories = useMemo(() => {
-    return ['All', ...Array.from(new Set(books.map(b => b.category)))];
-  }, [books]);
-
-  const types = useMemo(() => {
-    return ['All', ...Array.from(new Set(books.map(b => b.type)))];
-  }, [books]);
-
-  const navigateTo = (view: any) => {
+  const navigateTo = (view: 'home' | 'catalog' | 'contact' | 'admin') => {
     setCurrentView(view);
     setIsMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -86,31 +57,22 @@ const App: React.FC = () => {
     setIsCartOpen(true);
   };
 
-  if (checkingAuth) return null;
-
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 font-sans">
       {currentView === 'admin' ? (
         session ? (
-          <AdminDashboard 
-            books={books} 
-            onClose={() => navigateTo('home')} 
-            onUpdate={refresh} 
-          />
+          <AdminDashboard books={books} onClose={() => navigateTo('home')} onUpdate={refresh} />
         ) : (
-          <LoginPage onLogin={() => navigateTo('admin')} onCancel={() => navigateTo('home')} />
+          <LoginPage onLogin={() => setSession(true)} onCancel={() => navigateTo('home')} />
         )
       ) : (
         <>
           <Header 
-            isMenuOpen={isMenuOpen} 
-            setIsMenuOpen={setIsMenuOpen} 
-            currentView={currentView}
-            navigateTo={navigateTo}
+            isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} 
+            currentView={currentView} navigateTo={navigateTo}
             cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
             onOpenCart={() => setIsCartOpen(true)}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
+            searchTerm={searchTerm} setSearchTerm={setSearchTerm}
           />
           
           <main className="flex-grow">
@@ -135,14 +97,11 @@ const App: React.FC = () => {
                 <ProductServices />
                 <div className="mb-12">
                   <SearchFilters 
-                    searchTerm={searchTerm} 
-                    setSearchTerm={setSearchTerm}
-                    activeCategory={activeCategory}
-                    setActiveCategory={setActiveCategory}
-                    activeType={activeType}
-                    setActiveType={setActiveType}
-                    categories={categories}
-                    types={types}
+                    searchTerm={searchTerm} setSearchTerm={setSearchTerm}
+                    activeCategory={activeCategory} setActiveCategory={setActiveCategory}
+                    activeType={activeType} setActiveType={setActiveType}
+                    categories={['All', ...Array.from(new Set(books.map(b => b.category)))]}
+                    types={['All', ...Array.from(new Set(books.map(b => b.type)))]}
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -160,9 +119,7 @@ const App: React.FC = () => {
           <WhatsAppButton />
 
           <CartDrawer 
-            isOpen={isCartOpen} 
-            onClose={() => setIsCartOpen(false)} 
-            items={cart}
+            isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} items={cart}
             onUpdateQuantity={(id, d) => setCart(prev => prev.map(i => i.id === id ? {...i, quantity: Math.max(1, i.quantity + d)} : i))}
             onRemove={(id) => setCart(prev => prev.filter(i => i.id !== id))}
           />
