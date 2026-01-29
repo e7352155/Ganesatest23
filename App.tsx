@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Book, CartItem } from './types';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -18,10 +18,9 @@ import LoginPage from './components/CMS/LoginPage';
 import { useBooks } from './hooks/useBooks';
 import { db, supabase } from './lib/supabase';
 import { TESTIMONIALS } from './data';
-import { askAiAssistant } from './geminiService';
 
 const App: React.FC = () => {
-  const { books, loading, refresh } = useBooks();
+  const { books, refresh } = useBooks();
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -37,22 +36,16 @@ const App: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // AI State
-  const [isAiOpen, setIsAiOpen] = useState(false);
-  const [aiInput, setAiInput] = useState('');
-  const [aiHistory, setAiHistory] = useState<{role: 'user' | 'ai', text: string}[]>([]);
-  const [isAiLoading, setIsAiLoading] = useState(false);
-
   useEffect(() => {
     // Check session on mount
-    db.auth.getSession().then(session => {
-      setSession(session);
+    db.auth.getSession().then(sessionData => {
+      setSession(sessionData);
       setCheckingAuth(false);
     });
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, sessionData) => {
+      setSession(sessionData);
     });
 
     return () => subscription.unsubscribe();
@@ -91,23 +84,6 @@ const App: React.FC = () => {
       return [...prev, { ...book, quantity: 1 }];
     });
     setIsCartOpen(true);
-  };
-
-  const handleAiSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!aiInput.trim() || isAiLoading) return;
-    const userMessage = aiInput;
-    setAiInput('');
-    setAiHistory(prev => [...prev, { role: 'user', text: userMessage }]);
-    setIsAiLoading(true);
-    try {
-      const response = await askAiAssistant(userMessage, books);
-      setAiHistory(prev => [...prev, { role: 'ai', text: response || 'No response.' }]);
-    } catch (err) {
-      setAiHistory(prev => [...prev, { role: 'ai', text: 'Error.' }]);
-    } finally {
-      setIsAiLoading(false);
-    }
   };
 
   if (checkingAuth) return null;
@@ -182,12 +158,6 @@ const App: React.FC = () => {
 
           <Footer navigateTo={navigateTo} />
           <WhatsAppButton />
-          
-          <div className="fixed bottom-24 right-6 z-[90]">
-            <button onClick={() => setIsAiOpen(true)} className="bg-teal-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-            </button>
-          </div>
 
           <CartDrawer 
             isOpen={isCartOpen} 

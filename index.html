@@ -12,9 +12,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   
-  <!-- Tailwind CSS CDN -->
+  <!-- CSS Fallback -->
+  <link rel="stylesheet" href="index.css">
+
+  <!-- Tailwind Play CDN for Instant Preview -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
   <script>
     tailwind.config = {
       theme: {
@@ -42,7 +44,6 @@
       }
     }
   </script>
-
   <style type="text/tailwindcss">
     @layer utilities {
       .snap-x { scroll-snap-type: x mandatory; }
@@ -50,33 +51,25 @@
       .scrollbar-hide::-webkit-scrollbar { display: none; }
       .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     }
-    
     @keyframes shimmer {
       0% { background-position: -1000px 0; }
       100% { background-position: 1000px 0; }
     }
-    
     .skeleton {
       background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
       background-size: 1000px 100%;
       animation: shimmer 2s infinite linear;
     }
-
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #f1f1f1; }
-    ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #b45309; }
   </style>
 <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@^19.2.4",
     "react/": "https://esm.sh/react@^19.2.4/",
-    "vite": "https://esm.sh/vite@^7.3.1",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
-    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.93.2"
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.93.2",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
