@@ -3,9 +3,9 @@ import React from 'react';
 
 const AboutSection: React.FC = () => {
   const features = [
-    { title: 'Koleksi Eksklusif', description: 'Akses ke judul-judul buku yang hanya didistribusikan oleh Ganesa Mas di wilayah Bali.', icon: '📚' },
-    { title: 'Pengiriman Cepat', description: 'Logistik terintegrasi untuk memastikan stok buku sampai tepat waktu di sekolah atau toko Anda.', icon: '🚚' },
-    { title: 'Kemitraan Luas', description: 'Telah dipercaya oleh puluhan sekolah internasional dan perpustakaan daerah di Bali.', icon: '🤝' }
+    { title: 'Penerbitan Mandiri', description: 'Pendampingan penuh dari ide hingga pengurusan ISBN untuk melahirkan karya yang berdaya saing.', icon: '✍️' },
+    { title: 'Distribusi Nasional', description: 'Jaringan distribusi yang kuat memastikan setiap judul menjangkau toko buku dan perpustakaan terbaik.', icon: '🌍' },
+    { title: 'Kualitas Premium', description: 'Standar cetak dan kurasi konten tinggi untuk kepuasan pembaca dan prestise bagi penulis.', icon: '⭐' }
   ];
 
   return (
@@ -15,22 +15,22 @@ const AboutSection: React.FC = () => {
           <div className="lg:w-1/2">
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80&w=1000" 
-                alt="Ganesa Mas Office" 
+                src="https://images.unsplash.com/photo-1513001900722-370f803f498d?auto=format&fit=crop&q=80&w=1000" 
+                alt="Proses Kreatif Ganesa Mas" 
                 className="rounded-[3rem] shadow-2xl object-cover h-[500px] w-full"
               />
               <div className="absolute -bottom-8 -right-8 bg-orange-600 text-white p-10 rounded-[2.5rem] hidden md:block shadow-xl">
-                <p className="text-4xl font-black mb-1">10+</p>
-                <p className="text-sm font-bold uppercase tracking-widest opacity-80">Tahun Pengalaman</p>
+                <p className="text-4xl font-black mb-1">500+</p>
+                <p className="text-sm font-bold uppercase tracking-widest opacity-80">Judul Diterbitkan</p>
               </div>
             </div>
           </div>
           
           <div className="lg:w-1/2">
             <span className="text-orange-600 font-bold uppercase tracking-[0.3em] text-sm mb-4 block">Tentang Ganesa Mas</span>
-            <h2 className="text-4xl md:text-5xl font-bold serif mb-8 text-gray-900 leading-tight">Membangun Masa Depan Bali Melalui Literasi.</h2>
+            <h2 className="text-4xl md:text-5xl font-bold serif mb-8 text-gray-900 leading-tight">Rumah bagi Kreativitas dan Pengetahuan.</h2>
             <p className="text-gray-500 text-lg leading-relaxed mb-10">
-              Ganesa Mas berdiri dengan satu visi utama: Menjadi jembatan antara ilmu pengetahuan dunia dan masyarakat Bali. Sebagai distributor buku eksklusif, kami berkomitmen menyediakan sumber daya pendidikan berkualitas tinggi yang relevan, inspiratif, dan mudah diakses.
+              Ganesa Mas bukan sekadar distributor; kami adalah inkubator literasi. Kami membantu penulis lokal Bali mewujudkan impian mereka melalui layanan penerbitan profesional, sekaligus menghadirkan referensi dunia terbaik melalui kanal distribusi kami yang eksklusif.
             </p>
             
             <div className="grid gap-6">

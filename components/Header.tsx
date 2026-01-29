@@ -53,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-3 shrink-0">
             <button onClick={() => navigateTo('home')} className="flex flex-col group text-left outline-none">
               <span className="text-xl md:text-2xl font-bold tracking-tight text-gray-900 leading-none group-hover:text-orange-600 transition-colors">Ganesa Mas</span>
-              <span className="text-[9px] md:text-[10px] font-bold text-orange-500 uppercase tracking-[0.2em] mt-1">Eksklusif Distributor Bali</span>
+              <span className="text-[9px] md:text-[10px] font-bold text-orange-500 uppercase tracking-[0.2em] mt-1">Penerbit & Distributor Bali</span>
             </button>
           </div>
 

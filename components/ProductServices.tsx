@@ -3,10 +3,10 @@ import React from 'react';
 
 const ProductServices: React.FC = () => {
   const servicePhotos = [
-    { url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=800', label: 'Buku Sekolah Internasional' },
-    { url: 'https://images.unsplash.com/photo-1491841573634-28140fc7ced7?auto=format&fit=crop&q=80&w=800', label: 'Koleksi Sastra Lokal' },
-    { url: 'https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&q=80&w=800', label: 'Referensi Teknologi & Bisnis' },
-    { url: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=800', label: 'Pengembangan Diri' },
+    { url: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800', label: 'Layanan Penerbitan ISBN' },
+    { url: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=800', label: 'Distribusi Buku Internasional' },
+    { url: 'https://images.unsplash.com/photo-1544928147-79723465d48e?auto=format&fit=crop&q=80&w=800', label: 'Desain Cover & Layouting' },
+    { url: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=800', label: 'Buku Pendidikan Sekolah' },
   ];
 
   return (
@@ -14,19 +14,19 @@ const ProductServices: React.FC = () => {
       <div className="flex flex-col md:flex-row gap-12 items-center mb-16">
         <div className="md:w-1/2">
           <span className="text-orange-600 font-bold uppercase tracking-widest text-xs mb-4 block">Layanan & Produk</span>
-          <h2 className="text-4xl font-bold serif mb-6 text-gray-900">Lebih dari Sekadar Distributor Buku.</h2>
+          <h2 className="text-4xl font-bold serif mb-6 text-gray-900">Solusi Literasi Dari Hulu ke Hilir.</h2>
           <p className="text-gray-500 leading-relaxed mb-6">
-            Kami menyediakan layanan pengadaan buku terintegrasi untuk sekolah, perpustakaan, dan kolektor pribadi di Bali. Mulai dari kurasi judul internasional hingga distribusi karya penulis lokal berbakat.
+            Kami mengintegrasikan proses kreatif penerbitan dengan efisiensi distribusi. Baik Anda seorang penulis pemula maupun institusi yang membutuhkan pengadaan skala besar, Ganesa Mas adalah mitra yang tepat.
           </p>
           <ul className="space-y-3">
             <li className="flex items-center gap-3 text-gray-700 font-medium">
-              <span className="text-orange-500">✦</span> Kurasi Judul Eksklusif
+              <span className="text-orange-500">✦</span> Jasa Penerbitan (ISBN, Edit, Layout)
             </li>
             <li className="flex items-center gap-3 text-gray-700 font-medium">
-              <span className="text-orange-500">✦</span> Pengadaan Skala Besar (Sekolah/Kantor)
+              <span className="text-orange-500">✦</span> Distribusi Eksklusif Nasional & Bali
             </li>
             <li className="flex items-center gap-3 text-gray-700 font-medium">
-              <span className="text-orange-500">✦</span> Layanan Konsultasi Literasi
+              <span className="text-orange-500">✦</span> Cetak Buku Kualitas Tinggi
             </li>
           </ul>
         </div>

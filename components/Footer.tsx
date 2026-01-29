@@ -15,10 +15,10 @@ const Footer: React.FC<FooterProps> = ({ navigateTo }) => {
           <div className="space-y-6">
             <div className="flex flex-col">
               <span className="text-2xl font-bold text-white leading-none tracking-tight">Ganesa Mas</span>
-              <span className="text-[10px] font-bold text-orange-500 uppercase tracking-[0.2em] mt-1">Eksklusif Distributor Bali</span>
+              <span className="text-[10px] font-bold text-orange-500 uppercase tracking-[0.2em] mt-1">Penerbit & Distributor Bali</span>
             </div>
             <p className="text-sm leading-relaxed text-gray-500 font-medium max-w-xs">
-              Solusi distribusi literasi terpercaya untuk sekolah, institusi, dan komunitas di seluruh penjuru Bali.
+              Membangun peradaban melalui buku. Kami membantu menerbitkan karya orisinil dan mendistribusikannya ke seluruh penjuru Nusantara.
             </p>
             
             <div className="space-y-4 pt-4">
